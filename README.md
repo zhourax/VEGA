@@ -78,7 +78,7 @@ pip install nltk
 pip install rouge
 ```
 
-Set your model in eval/IITC.py and eval/ITA.py.
+ After setting your model in eval/IITC.py and eval/ITA.py.
 
 ```python
 bash eval/IITC.sh
