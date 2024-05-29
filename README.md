@@ -67,6 +67,7 @@ In all the JSON "context" fields, the picture is represented as "Picture id: <im
 {
   "context": "...The result illustrated in Figure~6[Picture 1] shows that the proposed network extracting patches feat <img>test_imgs/1803.06598v1/Figs/SIR_VS_CR_curve.png</img>\nFigure. 7..."
 }
+```
 
 ### Evaluation
 
