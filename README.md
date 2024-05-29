@@ -1,5 +1,3 @@
-# VEGA
-
 # VEGA: Learning Interleaved Image-Text Comprehension in Vision-Language Large Models
 
 我们提出了一个全新的多模态任务 Interleaved Image-Text Comprehension (IITC)，用于衡量模型处理图文交错的包含冗余误导信息的输入的能力。为了评估和提升模型在 IITC 任务上的表现，我们制作了 VEGA 数据集，其包含两个子集，分别用于 IITC 任务和 ITA 任务的训练和评测，其中 ITA 任务是一个子任务用于辅助 IITC 任务的训练。
