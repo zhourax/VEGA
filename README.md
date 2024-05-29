@@ -2,7 +2,7 @@
 
 We propose a novel multimodal task called Interleaved Image-Text Comprehension (IITC) to evaluate a model's ability to process Interleaved image and text inputs that include redundant and misleading information. To assess and improve model performance on the IITC task, we have created the VEGA dataset, which consists of two subsets. These subsets are used for training and evaluating both the IITC task and the ITA task, the latter being a subtask designed to support the training of the IITC task.
 
-![](static/FEjJbk2CAoAzMaxws3gcXIaQnMh.png)
+![](assets/intro1.png)
 
 # Dataset Structure
 
@@ -28,12 +28,12 @@ We propose a novel multimodal task called Interleaved Image-Text Comprehension (
 │   │   └── pdferror.png
 │   ├── 1001.0357v1
 │   │   └── Different_Capacity_regions_2dB.png
-......
+...
 ├── train_imgs
 │   ├── 1001.0025v1
 │   │   ├── bound1.png
 │   │   ├── del3.png
-......
+...
 ```
 
 The data in IITC*.json follows the following format:
@@ -64,12 +64,10 @@ In all the JSON "context" fields, the picture is represented as "Picture id: <im
 
 ```json
 {
-...
 "context": "...The result illustrated in Figure~6[Picture 1] shows that the proposed network extracting patches features separately performs significantly better than previous methods extracting patches feature together.\n
 Picture 1: <img>test_imgs/1803.06598v1/Figs/stack_LAN.png</img>\nFigure. 6
 Picture 2: <img>test_imgs/1803.06598v1/Figs/SIR_VS_CR_curve.png</img>\nFigure. 7
-....", 
-...
+...", 
 }
 ```
 
