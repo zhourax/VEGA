@@ -64,10 +64,9 @@ In all the JSON "context" fields, the picture is represented as "Picture id: <im
 
 ```json
 {
-"context": "...The result illustrated in Figure~6[Picture 1] shows that the proposed network extracting patches features separately performs significantly better than previous methods extracting patches feature together.\n
-Picture 1: <img>test_imgs/1803.06598v1/Figs/stack_LAN.png</img>\nFigure. 6
-Picture 2: <img>test_imgs/1803.06598v1/Figs/SIR_VS_CR_curve.png</img>\nFigure. 7
-...", 
+"context": "...The result illustrated in Figure~6[Picture 1] shows that the proposed network extracting patches features separately performs significantly better than previous methods extracting patches feature together.\n Picture 1: <img>test_imgs/1803.06598v1/Figs/stack_LAN.png</img>\nFigure. 6 Picture 
+ <img>test_imgs/1803.06598v1/Figs/SIR_VS_CR_curve.png</img>\nFigure. 7
+..."
 }
 ```
 
