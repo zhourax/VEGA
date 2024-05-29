@@ -46,7 +46,7 @@ The data in IITC*.json follows the following format:
 "question": "Question about a specific image.", 
 "answer": "The answer."
 "image_paths": "List of image paths.",
-"truth_fig_idx": "Index of the correct image in image_paths.", 
+"truth_fig_idx": "Index of the correct image in image_paths."
 }
 ```
 
