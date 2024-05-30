@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Visual Instruction Tuning">
+  <meta name="keywords" content="multimodal chatbot">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cantor</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="images/icon.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.16.0/gradio.js"></script>
+</head>
+
+<style>
+  .expandable-card .card-text-container {
+    max-height: 200px;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  .expandable-card.expanded .card-text-container {
+    max-height: none;
+  }
+
+  .expand-btn {
+    position: relative;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* margin-top: -20px; */
+    /* justify-content: center; */
+    color: #510c75;
+    border-color: transparent;
+  }
+
+  .expand-btn:hover {
+    background-color: rgba(200, 200, 200, 0.8);
+    text-decoration: none;
+    border-color: transparent;
+    color: #510c75;
+  }
+
+  .expand-btn:focus {
+    outline: none;
+    text-decoration: none;
+  }
+
+  .expandable-card:not(.expanded) .card-text-container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+  }
+
+  .expandable-card:not(.expanded) .expand-btn {
+    margin-top: -40px;
+  }
+
+  .card-body {
+    padding-bottom: 5px;
+  }
+
+  .vertical-flex-layout {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .figure-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .adjustable-font-size {
+    font-size: calc(0.5rem + 2vw);
+  }
+
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* overflow-x: hidden; */
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #gradio pre {
+    background-color: transparent;
+  }
+</style>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h2 class="title is-1 publication-title">Cantor<img id="painting_icon" width="6%" src="images/icon.png">: Inspiring Multimodal Chain-of-Thought of MLLM</h2>
+            <!-- <h3 class="title is-3 publication-title">Visual Instruction Tuning</h3> -->
+            <!-- <h5 class="subtitle is-5 publication-awards">NeurIPS 2023 (Oral)</h5> -->
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a  style="color:#f68946;font-weight:normal;">Timin Gao<sup>*</sup></a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#008AD7;font-weight:normal;">Peixian Chen<sup>*</sup></a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#008AD7;font-weight:normal;">Mengdan Zhang<sup>*</sup></a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#008AD7;font-weight:normal;">Chaoyou Fu</a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#008AD7;font-weight:normal;">Yunhang Shen</a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#f68946;font-weight:normal;">Yan Zhang &dagger;</a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#f68946;font-weight:normal;">Shengchuan Zhang</a>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a  style="color:#f68946;font-weight:normal;">Xiawu Zheng</a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#008AD7;font-weight:normal;">Xing Sun</a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#f68946;font-weight:normal;">Liujuan Cao</a>,
+              </span>
+              <span class="author-block">
+                <a  style="color:#f68946;font-weight:normal;">Rongrong Ji</a>,
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><b style="color:#f68946; font-weight:normal">&#x25B6 </b> Xiamen University</span>
+              <span class="author-block"><b style="color:#008AD7; font-weight:normal">&#x25B6 </b> Tencent Youtu Lab</span>
+            </div>
+
+            <div class="is-size-6 publication-authors">
+              <span class="author-block"><sup>*</sup>Equal Contribution</span>
+              <span class="author-block"><sup>&dagger;</sup>Corresponding Author</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2404.16033" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/ggg0919/cantor" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section"  style="background-color:#efeff081">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p style="font-family:Times New Roman">
+                With the advent of large language models(LLMs) enhanced by the chain-of-thought(CoT) methodology, visual reasoning problem is usually decomposed into manageable sub-tasks and tackled sequentially with various external tools.
+                However, such a paradigm faces the challenge of the potential "determining hallucinations" in decision-making due to insufficient visual information and the limitation of low-level perception tools that fail to provide abstract summaries necessary for comprehensive reasoning.
+                We argue that converging visual context acquisition and logical reasoning is pivotal for tackling visual reasoning tasks.
+                This paper delves into the realm of multimodal CoT to solve intricate visual reasoning tasks with multimodal large language models(MLLMs) and their cognitive capability.
+                To this end, we propose an innovative multimodal CoT framework, termed Cantor, characterized by a perception-decision architecture.
+                Cantor first acts as a decision generator and integrates visual inputs to analyze the image and problem, ensuring a closer alignment with the actual context.
+                Furthermore, Cantor leverages the advanced cognitive functions of MLLMs to perform as multifaceted experts for deriving higher-level information, enhancing the CoT generation process.
+                Our extensive experiments demonstrate the efficacy of the proposed framework, showing significant improvements in multimodal CoT performance across two complex visual reasoning datasets, without necessitating fine-tuning or ground-truth rationales.
+           </p>
+  
+          </div>
+        </div>
+      </div>
+        
+    </div>
+  </section>
+
+
+ 
+
+<section class="section">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3"> Approach</h2>
+    </div>
+  </div>
+  <!-- </div> -->
+  <!--/ Results. -->    
+<div class="container is-max-desktop">
+
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+      <centering>
+        <div style="text-align: center;">
+          <img id="teaser" width="85%" src="images/fig2.png">     
+        </div>
+      </centering>    
+      <br>
+      <div class="content has-text-justified"> 
+        <p>
+          We propose an inspiring multimodal CoT framework named Cantor, which features a perceptual decision architecture that effectively integrates visual context and logical reasoning to solve visual reasoning tasks. Cantor consists of two stages: Decision-Generation and Execution:
+          <ul type="1">
+            <li><b>Stage 1: Decision-Generation</b>. <span style="font-size: 95%;">It is to generate decision which considers and deploys the problem.</span></li>
+            <li><b>Stage 2: Execution</b>. <span style="font-size: 95%;">In Cantor, the execution stage can be divided into two stages: Execute-Modularization and Execute-Synthesis.
+              <ul type="1">
+                <li> <b>Execute-Modularization</b>: It completes the sub-tasks assigned during the Decision- Generation stage by calling various expert modules and providing supplementary information.
+                <li> <b>Execute-Synthesis</b>: It summarizes various supplementary information from the execute-modularization stage and generates the final answer through rational and detailed thinking. </span></li>
+              </ul>  
+          </ul>  
+        </p>
+      </div>       
+    </div>
+  </div>
+
+</section>
+  
+
+
+<section class="section">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3"><img id="painting_icon" width="3%" src="https://cdn-icons-png.flaticon.com/512/3515/3515174.png"> Performance</h2>
+    </div>
+  </div>
+
+
+
+  <!-- </div> -->
+  <!--/ Results. -->    
+<div class="container is-max-desktop">
+
+  <!-- Grounedtext2img. -->
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+      <h2 class="title is-4"> <span style="font-size: 100%;"> <a href="https://scienceqa.github.io/"><img id="painting_icon" width="3%" src="https://scienceqa.github.io/img/logo.png"> ScienceQA</a></span>:</h2>
+      <div>
+        <a target="_blank" title="Plot 1" style="display: block; text-align: center;"><img id="painting_icon" width="70%" src="images/tab1.png">
+        <!-- <script data-plotly="lichunyuan24:1" sharekey-plotly="v4opE3TJpxqQ08RYsDD4iv" src="https://plotly.com/embed.js" async></script> -->
+      </div>
+      <br>
+      <p style="font-family:Times New Roman; text-align: left;"><b>Tab. 1 shows the results of existing baselines compared to our method Cantor on ScienceQA. Using GPT-3.5 as the base LLM to decision and answer, Cantor achieves an accuracy of 82.39%, which is an improvement of 4.08% over the chain-of-thought (CoT) prompted GPT-3.5. Furthermore, with Gemini as the decision generator and answer generator, Cantor reaches an accuracy of 84.96%, significantly surpassing all training-free methods, and even outperforming fine-tuned methods like UnifiedQA (CoT) and MM-CoT.</b>
+
+      <div>
+        <a target="_blank" title="Plot 1" style="display: block; text-align: center;"><img id="painting_icon" width="35%" src="images/tab2.png">
+        <!-- <script data-plotly="lichunyuan24:1" sharekey-plotly="v4opE3TJpxqQ08RYsDD4iv" src="https://plotly.com/embed.js" async></script> -->
+      </div>
+      <p style="font-family:Times New Roman; text-align: left;"><b>Particularly noteworthy is that Cantor advances in the multimodal domain. As shown in Tab. 2, we further present the accuracy of various methods on ScienceQA for the IMG class, which includes image context. It can be seen that Cantor based on GPT-3.5 significantly surpasses the baseline in various problems, and even surpasses well-known MLLMs such as SPHINX and LLaVA-1.5.</b>
+      
+    </div>
+  </div>
+
+
+  <!-- Grounedtext2img. -->
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+      <h2 class="title is-4"> <span style="font-size: 100%;"> <a href="https://mathvista.github.io/#leaderboard"><img id="painting_icon" width="3%" src="images/mathvista.png"> MathVista</a></span>:</h2>
+      
+      <div>
+        <a target="_blank" style="display: block; text-align: center;">  <img id="painting_icon" width="70%" src="images/tab3.png"> </a>
+
+    </div>
+    <br>
+    <p style="font-family:Times New Roman"><b>MathVista is a challenging dataset that integrating a variety of mathematical reasoning tasks with visual tasks. Tab. 3 compares different method performances. We also conduct experiments using GPT-3.5 and Gemini as baselines. From general visual question answering to professional math word problems, Cantor has greatly surpassed the baseline in almost all types of problems. This indicates that correct decision and modular experts can stimulate their fine-grained, in-depth visual understanding and combinatorial reasoning abilities. It is worth noting that Cantor (GPT-3.5) even surpasses GPT-4 based on CoT and PoT.</b>               
+    </div>
+  </div>
+
+</section>
+
+
+
+
+<section class="section">
+
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3"> Specific Cases of Cantor</h2>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <!-- 图片1 -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <img id="teaser1" style="width: 70%;" src="images/case4.png">
+      </div>
+    </div>
+  
+    <!-- 图片2 -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <img id="teaser2" style="width: 70%;" src="images/case5.png">
+      </div>
+    </div>
+  
+    <!-- 图片3 -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <img id="teaser3" style="width: 70%;" src="images/case6.png">
+      </div>
+    </div>
+  </div>
+  
+  
+  
+</section>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>
+@article{gao2024cantor,
+  title={Cantor: Inspiring Multimodal Chain-of-Thought of MLLM},
+  author={Gao, Timin and Chen, Peixian and Zhang, Mengdan and Fu, Chaoyou and Shen, Yunhang and Zhang, Yan and Zhang, Shengchuan and Zheng, Xiawu and Sun, Xing and Cao, Liujuan and Ji, Rongrong},
+  journal={arXiv preprint arXiv:2404.16033},
+  year={2024}
+}
+  </code></pre>
+    </div>
+  </section>
+  
+  
+
+  <script>
+    // Handle message showing
+    function createChatRow(sender, text, imageSrc) {
+      var article = document.createElement("article");
+      article.className = "media"
+
+      var figure = document.createElement("figure");
+      figure.className = "media-left";
+
+      var span = document.createElement("span");
+      span.className = "icon is-large";
+
+      var icon = document.createElement("i");
+      icon.className = "fas fas fa-2x" + (sender === "User" ? " fa-user " : sender === "LLaVA" ? " fa-robot" : "");
+
+      var media = document.createElement("div");
+      media.className = "media-content";
+
+      var content = document.createElement("div");
+      content.className = "content";
+
+      var para = document.createElement("p");
+
+      // wrap text in pre tag to preserve whitespace and line breaks
+      var pre_text = document.createElement("pre");
+      pre_text.style = "background-color: white; font-size: 18px; font-family: Arial; padding: 0; margin: 0; white-space: pre-wrap; word-wrap: break-word;";
+      var paraText = document.createTextNode(text);
+      pre_text.appendChild(paraText);
+
+      var strong = document.createElement("strong");
+      strong.innerHTML = sender;
+      var br = document.createElement("br");
+
+      para.appendChild(strong);
+      para.appendChild(br);
+      para.appendChild(pre_text);
+
+      // Add image if imageSrc is provided
+      if (imageSrc) {
+        var img = document.createElement("img");
+        img.src = imageSrc;
+        img.style = "max-width: 100%; max-height: 300px;"; // Adjust the style as needed
+        para.appendChild(img);
+      }
+
+      content.appendChild(para);
+      media.appendChild(content);
+      span.appendChild(icon);
+      figure.appendChild(span);
+      if (sender !== "Description") {
+        article.appendChild(figure);
+      };
+      article.appendChild(media);
+      return article;
+    }
+
+    function addMessageToChatHistory(sender, message, imageSrc) {
+      const chatHistory = document.querySelector('.chat-history');
+      const chatRow = createChatRow(sender, message, imageSrc);
+      chatHistory.appendChild(chatRow);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function clearChatHistory() {
+      const chatHistory = document.querySelector('.chat-history');
+      chatHistory.innerHTML = "";
+    }
+
+
+    // The current image index
+    let currentIndex = 0;
+
+    // The function to update the displayed chat history
+    function update_dialog_demo() {
+      // Clear the chat history
+      clearChatHistory();
+
+      for (let i = 0; i < conversations[currentIndex].turns.length; i++) {
+        if (conversations[currentIndex].turns[i].length == 2) {
+          addMessageToChatHistory(conversations[currentIndex].turns[i][0], conversations[currentIndex].turns[i][1]);
+        }
+        else {
+          addMessageToChatHistory(conversations[currentIndex].turns[i][0], conversations[currentIndex].turns[i][1], conversations[currentIndex].turns[i][2]);
+        }
+      }
+
+      // scroll to the top of the chat history
+      document.querySelector('.chat-history').scrollTop = 0;
+    }
+
+    // Initialize the displayed image
+    update_dialog_demo();
+
+    // Event listeners for the buttons
+    document.getElementById('prev-question').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + conversations.length) % conversations.length;
+      update_dialog_demo();
+    });
+
+    document.getElementById('next-question').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % conversations.length;
+      update_dialog_demo();
+    });
+
+
+  </script>
+
+</body>
+
+</html>
