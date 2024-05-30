@@ -60,7 +60,7 @@ The data in ITA*.json follows the following format:
 }
 ```
 
-In all the JSON "context" fields, the picture is represented as "Picture id: <img>img_path</img>\n" where "id" indicates the position of the image in the conversation, starting from 1. For example:
+In all the JSON "context" fields, the picture is represented as "Picture id: \<img\>img_path\<\/img\>\n" where "id" indicates the position of the image in the conversation, starting from 1. For example:
 
 
 ```json
