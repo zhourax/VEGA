@@ -30,7 +30,7 @@ We propose a novel multimodal task called Interleaved Image-Text Comprehension (
 │   │   └── Different_Capacity_regions_2dB.png
 ...
 ├── train_imgs
-│   ├── 1001.0025v1
+│   ├── 1001.0026v1
 │   │   ├── bound1.png
 │   │   ├── del3.png
 ...
