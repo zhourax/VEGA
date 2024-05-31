@@ -84,7 +84,7 @@ pip install rouge
 
 ```python
 bash eval/IITC.sh
-bash eval/ITA.py
+bash eval/ITA.sh
 ```
 
 # Citation
