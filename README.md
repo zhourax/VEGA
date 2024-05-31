@@ -1,6 +1,6 @@
 # VEGA<img src="assets/lyra.png" alt="Icon" width="25" height="25">: Learning Interleaved Image-Text Comprehension in Vision-Language Large Models
 
-We propose a novel multimodal task called Interleaved Image-Text Comprehension (IITC) to evaluate a model's ability to process Interleaved image and text inputs that include redundant and misleading information. To assess and improve model performance on the IITC task, we have created the VEGA dataset, which consists of two subsets. These subsets are used for training and evaluating both the IITC task and the ITA task, the latter being a subtask designed to support the training of the IITC task.
+We introduce a new multimodal task named Interleaved Image-Text Comprehension (IITC), designed to evaluate a model's capability to handle interleaved image-text inputs that contain redundant and misleading information. To enhance and measure model performance on the IITC task, we developed the VEGA dataset. By fine-tuning Qwen-VL-Chat on the VEGA dataset, we created VEGA-Base, a strong baseline for the IITC task.
 
 ![](assets/intro1.png)
 
