@@ -8,8 +8,8 @@ We introduce a new multimodal task named Interleaved Image-Text Comprehension (I
 
 # Dataset Structure
 
-- Download VEGA Datasets here.
-- Unzip the VEGADataset.zip and you will get the folder.
+- Download VEGA Datasets [here](https://huggingface.co/datasets/zhourax977/VEGA).
+- Unzip the imgs.zip and you will get the folder.
 
 ```
 .
