@@ -13,28 +13,27 @@ We introduce a new multimodal task named Interleaved Image-Text Comprehension (I
 
 ```
 .
-├── IITC_4k_test.json
-├── IITC_8k_test.json
-├── IITC_4k_train.json
-├── IITC_8k_train.json
-├── ITA_3picture_test.json
-├── ITA_5picture_test.json
-├── ITA_3picture_C_train.json
-├── ITA_5picture_C_train.json
-├── ITA_3picture_E_train.json
-├── ITA_5picture_E_train.json
-├── ITA_3picture_F_train.json
-├── ITA_5picture_F_train.json
-├── test_imgs
-│   ├── 1001.0025v1
-│   │   └── pdferror.png
-│   ├── 1001.0357v1
-│   │   └── Different_Capacity_regions_2dB.png
+├── datas
+│   ├── IITC_4k_test.json
+│   ├── IITC_4k_train.json
+│   ├── IITC_8k_test.json
+│   ├── IITC_8k_train.json
+│   ├── ITA_3picture_C_train.json
+│   ├── ITA_3picture_E_train.json
+│   ├── ITA_3picture_F_train.json
+│   ├── ITA_3picture_test.json
+│   ├── ITA_5picture_C_train.json
+│   ├── ITA_5picture_E_train.json
+│   ├── ITA_5picture_F_train.json
+│   └── ITA_5picture_test.json
+├── imgs
+│   ├── test_imgs
+│   │   ├── 1001.0025v1
+│   │   │   └── pdferror.png
+│   │   ├── 1001.0357v1
+│   │   │   └── Different_Capacity_regions_2dB.png
 ...
-├── train_imgs
-│   ├── 1001.0026v1
-│   │   ├── bound1.png
-│   │   ├── del3.png
+|   ├── train_imgs
 ...
 ```
 
