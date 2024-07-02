@@ -4,7 +4,7 @@
 
 We introduce a new multimodal task named Interleaved Image-Text Comprehension (IITC), designed to evaluate a model's capability to handle interleaved image-text inputs that contain redundant and misleading information. To enhance and measure model performance on the IITC task, we developed the VEGA dataset. By fine-tuning Qwen-VL-Chat on the VEGA dataset, we created VEGA-Base, a strong baseline for the IITC task.
 
-![](assets/intro1.png)
+![](assets/intro.png)
 
 # Dataset Structure
 
