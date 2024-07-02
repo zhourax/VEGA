@@ -1,6 +1,6 @@
 # VEGA<img src="assets/lyra.png" alt="Icon" width="25" height="25">: Learning Interleaved Image-Text Comprehension in Vision-Language Large Models
 
-**[Project Page](https://zhourax.github.io/VEGA/)** | **[Paper](https://arxiv.org/pdf/2406.10228)** | **[Dataset]([https://arxiv.org/pdf/2406.10228](https://huggingface.co/datasets/zhourax977/VEGA)**
+**[Project Page](https://zhourax.github.io/VEGA/)** | **[Paper](https://arxiv.org/pdf/2406.10228)** | **[Dataset](https://huggingface.co/datasets/zhourax977/VEGA)**
 
 We introduce a new multimodal task named Interleaved Image-Text Comprehension (IITC), designed to evaluate a model's capability to handle interleaved image-text inputs that contain redundant and misleading information. To enhance and measure model performance on the IITC task, we developed the VEGA dataset. By fine-tuning Qwen-VL-Chat on the VEGA dataset, we created VEGA-Base, a strong baseline for the IITC task.
 
