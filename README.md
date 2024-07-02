@@ -87,6 +87,7 @@ bash eval/ITA.sh
 ```
 
 # Citation
+```python
 @misc{zhou2024vegalearninginterleavedimagetext,
       title={VEGA: Learning Interleaved Image-Text Comprehension in Vision-Language Large Models}, 
       author={Chenyu Zhou and Mengdan Zhang and Peixian Chen and Chaoyou Fu and Yunhang Shen and Xiawu Zheng and Xing Sun and Rongrong Ji},
@@ -96,3 +97,4 @@ bash eval/ITA.sh
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2406.10228}, 
 }
+```
