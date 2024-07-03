@@ -8,7 +8,7 @@ We introduce a new multimodal task named Interleaved Image-Text Comprehension (I
 
 # Dataset Structure
 
-- Download VEGA Datasets [here](https://huggingface.co/datasets/zhourax977/VEGA).
+- VEGA Datasets consists of 2 tasks, approximately 593,000 training examples and 2,326 test examples. You can download VEGA  [here](https://huggingface.co/datasets/zhourax977/VEGA).
 - Unzip the imgs.zip and you will get the folder.
 
 ```
